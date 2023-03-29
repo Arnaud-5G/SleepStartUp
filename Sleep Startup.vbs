@@ -1,5 +1,3 @@
-' File you want to run
-UsrFile = ""
 ' Folder you want to run
 UsrFolder = "C:\Users\20200791\Desktop\!StartUpFiles"
 
