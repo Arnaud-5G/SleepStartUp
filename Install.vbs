@@ -9,13 +9,13 @@ msgtext3 = "Starting up"
 msgtext4 = "Welcome back "
 msgtext5 = "!"
 msgtext6 = "Opening the specified files..."
-msgtext7 = "Pc nap time: " 
+msgtext7 = "Pc nap time: "
 
 Dim Result : Result = MsgBox("Do you want to install the sleep startup programm?", 4, "Installer")
 
 If Result = 6 Then
     BrowseForFile()
-    Restart()
+    ob.Run "shutdown -g /t 3"
 End If
 
 Function BrowseForFile()
@@ -89,26 +89,5 @@ Function BrowseForFile()
         Else
             BrowseForFile()
         End If
-    End If
-End Function
-
-Function Restart()
-    Set ob = CreateObject("Wscript.Shell")
-
-    dim Result : Result = MsgBox("Do you wish to restart your computer?" & vbCrLf & _ 
-                    "This app will not work until you restart your computer",64 + 1,"Restart?")
-
-    If Result = 1 Then
-        UsrPrfl = ob.expandenvironmentstrings("%UserProfile%")
-        Dim FSO : Set FSO = CreateObject("Scripting.FileSystemObject")
-        Set OutPutFile = FSO.CreateTextFile(UsrPrfl & "\Desktop\restartcommand.cmd", True)
-        OutPutFile.WriteLine("shutdown -g /t 3")
-        OutputFile.Close()
-
-        ob.Run UsrPrfl & "\Desktop\restartcommand.cmd"
-        WScript.sleep 1000
-        FSO.DeleteFile(UsrPrfl & "\Desktop\restartcommand.cmd")
-
-        Set FSO = Nothing
     End If
 End Function
