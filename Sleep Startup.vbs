@@ -11,7 +11,7 @@ End If
 Set ob = CreateObject("Wscript.Shell")
 
 UsrNm = ob.expandenvironmentstrings("%Username%")
-MsgBox "Hi " & UsrNm & vbCrLf & _
+MsgBox "Hi " & UsrNm & vbCrLf & _ 
         "Opening the specified files...", 4096, "Starting up"
 
 If UsrFolder = "" Then 
@@ -20,12 +20,6 @@ Else
   ob.Run File.Path
   Next
 End If
-
-If UsrFile = "" Then
-Else
-ob.Run UsrFile
-End If
-
 
 Function GetDiff(Tm_a, Tm_b)
 If (isDate(Tm_a) And IsDate(Tm_b)) = False Then
@@ -50,7 +44,7 @@ If GetDiff(a, b) > "00:00:15" Then
 ' Code Block
 
 UsrNm = ob.expandenvironmentstrings("%Username%")
-MsgBox "Welcome back " & UsrNm & "!" & vbCrLf & _
+MsgBox "Welcome back " & UsrNm & "!" & vbCrLf & _ 
         "Opening the specified files...", 4096, "Pc nap time: " & GetDiff(a, b)
 
 If UsrFolder = "" Then 
@@ -58,11 +52,6 @@ Else
   For Each File in Folder.Files
   ob.Run File.Path
   Next
-End If
-
-If UsrFile = "" Then
-Else
-ob.Run UsrFile
 End If
 
 ' Code Block
