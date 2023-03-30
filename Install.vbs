@@ -11,30 +11,29 @@ msgtext5 = "!"
 msgtext6 = "Opening the specified files..."
 msgtext7 = "Pc nap time: " 
 
-dim result
-result = MsgBox("Do you want to install the sleep startup programm?", 4, "Installer")
+Dim Result : Result = MsgBox("Do you want to install the sleep startup programm?", 4, "Installer")
 
-If result = 6 Then
-BrowseForFile()
+If Result = 6 Then
+    BrowseForFile()
+    Restart()
 End If
 
-Restart()
-
 Function BrowseForFile()
-Dim Shell : Set Shell = CreateObject("Shell.Application")
-Dim File : Set File = Shell.BrowseForFolder(0, "Choose a folder:", &H4210)
+    Dim Shell : Set Shell = CreateObject("Shell.Application")
+    Dim File : Set File = Shell.BrowseForFolder(0, "Choose a folder:", &H4210)
     If File Is Nothing Then
         BrowseFolder = ""
     Else
-        BrowseForFile = file.self.Path
-        result = MsgBox("Do you want the files contained in this folder to be executed whenever you wake up your computer?" & vbCrLf & "Folder Path: " & BrowseForFile, 4, "Question Prompt")
-        If result=6 Then
+        BrowseForFile = File.self.Path
+        Dim Result : Result = MsgBox("Do you want the files contained in this folder to be executed whenever you wake up your computer?" & vbCrLf & "Folder Path: " & BrowseForFile, 4, "Question Prompt")
+        
+        If Result=6 Then
             MsgBox("Installing...")
 
-            Dim FSO
-            Set FSO = CreateObject("Scripting.FileSystemObject")
             UsrPrfl = ob.expandenvironmentstrings("%UserProfile%")
+            Dim FSO : Set FSO = CreateObject("Scripting.FileSystemObject")
             Set OutPutFile = FSO.CreateTextFile(UsrPrfl & "\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\StartUp.vbs", True)
+            
             OutPutFile.WriteLine("' Folder you want to run")
             OutPutFile.WriteLine("UsrFolder = """ & BrowseForFile & """")
             OutPutFile.WriteLine("If UsrFolder = """" Then")
@@ -85,8 +84,8 @@ Dim File : Set File = Shell.BrowseForFolder(0, "Choose a folder:", &H4210)
             OutPutFile.WriteLine("End If")
             OutPutFile.WriteLine("Loop")
             OutPutFile.Close
-            Set FSO = Nothing
 
+            Set FSO = Nothing
         Else
             BrowseForFile()
         End If
@@ -94,21 +93,22 @@ Dim File : Set File = Shell.BrowseForFolder(0, "Choose a folder:", &H4210)
 End Function
 
 Function Restart()
-Set ob = CreateObject("Wscript.Shell")
+    Set ob = CreateObject("Wscript.Shell")
 
-dim result
-result = MsgBox("Do you wish to restart your computer?" & vbCrLf & _ 
-                "This app will not work until you restart your computer",64 + 1,"Restart?")
-If result = 1 Then
-Dim FSO
-Set FSO = CreateObject("Scripting.FileSystemObject")
-UsrPrfl = ob.expandenvironmentstrings("%UserProfile%")
-Set OutPutFile = FSO.CreateTextFile(UsrPrfl & "\Desktop\restartcommand.cmd", True)
-OutPutFile.WriteLine("shutdown -g /t 3")
-OutputFile.Close()
-ob.Run UsrPrfl & "\Desktop\restartcommand.cmd"
-WScript.sleep 1000
-FSO.DeleteFile(UsrPrfl & "\Desktop\restartcommand.cmd")
-Set FSO = Nothing
-End If
+    dim Result : Result = MsgBox("Do you wish to restart your computer?" & vbCrLf & _ 
+                    "This app will not work until you restart your computer",64 + 1,"Restart?")
+
+    If Result = 1 Then
+        UsrPrfl = ob.expandenvironmentstrings("%UserProfile%")
+        Dim FSO : Set FSO = CreateObject("Scripting.FileSystemObject")
+        Set OutPutFile = FSO.CreateTextFile(UsrPrfl & "\Desktop\restartcommand.cmd", True)
+        OutPutFile.WriteLine("shutdown -g /t 3")
+        OutputFile.Close()
+
+        ob.Run UsrPrfl & "\Desktop\restartcommand.cmd"
+        WScript.sleep 1000
+        FSO.DeleteFile(UsrPrfl & "\Desktop\restartcommand.cmd")
+
+        Set FSO = Nothing
+    End If
 End Function
