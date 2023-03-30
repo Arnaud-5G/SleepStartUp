@@ -34,56 +34,56 @@ Function BrowseForFile()
             Dim FSO : Set FSO = CreateObject("Scripting.FileSystemObject")
             Set OutPutFile = FSO.CreateTextFile(UsrPrfl & "\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\StartUp.vbs", True)
             
-            OutPutFile.WriteLine("' Folder you want to run")
-            OutPutFile.WriteLine("UsrFolder = """ & BrowseForFile & """")
-            OutPutFile.WriteLine("If UsrFolder = """" Then")
-            OutPutFile.WriteLine("Else")
-            OutPutFile.WriteLine("Set FSO = CreateObject(""" & systemfile & """)")
-            OutPutFile.WriteLine("' Folder you want to run")
-            OutPutFile.WriteLine("Set Folder = FSO.GetFolder(""" & BrowseForFile & """)")
-            OutPutFile.WriteLine("End If")
-            OutPutFile.WriteLine("Set ob = CreateObject(""" & systemshell & """)")
-            OutPutFile.WriteLine("UsrNm = ob.expandenvironmentstrings(""" & username & """)")
-            OutPutFile.WriteLine("MsgBox """ & msgtext1 & """ & UsrNm & vbCrLf & _ ")
-            OutPutFile.WriteLine("""" & msgtext2 & """, 4096, """ & msgtext3 & """")
-            OutPutFile.WriteLine("If UsrFolder = """" Then")
-            OutPutFile.WriteLine("Else")
-            OutPutFile.WriteLine("For Each File in Folder.Files")
-            OutPutFile.WriteLine("ob.Run File.Path")
-            OutPutFile.WriteLine("Next")
-            OutPutFile.WriteLine("End If")
-            OutPutFile.WriteLine("Function GetDiff(Tm_a, Tm_b)")
-            OutPutFile.WriteLine("If (isDate(Tm_a) And IsDate(Tm_b)) = False Then")
-            OutPutFile.WriteLine("GetDiff = ""00:00:00""")
-            OutPutFile.WriteLine("Exit Function")
-            OutPutFile.WriteLine("End If")
-            OutPutFile.WriteLine("seconds = Abs(DateDiff(""S"", Tm_a, Tm_b))")
-            OutPutFile.WriteLine("minutes = seconds \ 60")
-            OutPutFile.WriteLine("hours = minutes \ 60")
-            OutPutFile.WriteLine("minutes = minutes Mod 60")
-            OutPutFile.WriteLine("seconds = seconds Mod 60")
-            OutPutFile.WriteLine("If Len(hours) = 1 Then hours = ""0"" & hours")
-            OutPutFile.WriteLine("GetDiff = hours & "":"" & Right(""00"" & minutes, 2) & "":"" & Right(""00"" & seconds, 2)")
-            OutPutFile.WriteLine("End Function")
-            OutPutFile.WriteLine("Do")
-            OutPutFile.WriteLine("a = Now")
-            OutPutFile.WriteLine("WScript.Sleep 5000")
-            OutPutFile.WriteLine("b = Now")
-            OutPutFile.WriteLine("If GetDiff(a, b) > ""00:00:15"" Then")
-            OutPutFile.WriteLine("' Code Block")
-            OutPutFile.WriteLine("UsrNm = ob.expandenvironmentstrings(""" & username & """)")
-            OutPutFile.WriteLine("MsgBox """ & msgtext4 & """ & UsrNm & """ & msgtext5 & """ & vbCrLf & _ ")
-            OutPutFile.WriteLine("""" & msgtext6 & """, 4096, """ & msgtext7 & """ & GetDiff(a, b)")
-            OutPutFile.WriteLine("If UsrFolder = """" Then")
-            OutPutFile.WriteLine("Else")
-            OutPutFile.WriteLine("For Each File in Folder.Files")
-            OutPutFile.WriteLine("ob.Run File.Path")
-            OutPutFile.WriteLine("Next")
-            OutPutFile.WriteLine("End If")
-            OutPutFile.WriteLine("' Code Block")
-            OutPutFile.WriteLine("End If")
-            OutPutFile.WriteLine("Loop")
-            OutPutFile.Close
+            OutPutFile.WriteLine("' Folder you want to run" & vbCrLf & _ 
+            "UsrFolder = """ & BrowseForFile & """" & vbCrLf & _
+            "If UsrFolder = """" Then" & vbCrLf & _
+            "Else" & vbCrLf & _
+            "Set FSO = CreateObject(""" & systemfile & """)" & vbCrLf & _
+            "' Folder you want to run" & vbCrLf & _
+            "Set Folder = FSO.GetFolder(""" & BrowseForFile & """)" & vbCrLf & _
+            "End If" & vbCrLf & _
+            "Set ob = CreateObject(""" & systemshell & """)" & vbCrLf & _
+            "UsrNm = ob.expandenvironmentstrings(""" & username & """)" & vbCrLf & _
+            "MsgBox """ & msgtext1 & """ & UsrNm & vbCrLf & _ " & vbCrLf & _
+            """" & msgtext2 & """, 4096, """ & msgtext3 & """" & vbCrLf & _
+            "If UsrFolder = """" Then" & vbCrLf & _
+            "Else" & vbCrLf & _
+            "For Each File in Folder.Files" & vbCrLf & _
+            "ob.Run File.Path" & vbCrLf & _
+            "Next" & vbCrLf & _
+            "End If" & vbCrLf & _
+            "Function GetDiff(Tm_a, Tm_b)" & vbCrLf & _
+            "If (isDate(Tm_a) And IsDate(Tm_b)) = False Then" & vbCrLf & _
+            "GetDiff = ""00:00:00""" & vbCrLf & _
+            "Exit Function" & vbCrLf & _
+            "End If" & vbCrLf & _
+            "seconds = Abs(DateDiff(""S"", Tm_a, Tm_b))" & vbCrLf & _
+            "minutes = seconds \ 60" & vbCrLf & _
+            "hours = minutes \ 60" & vbCrLf & _
+            "minutes = minutes Mod 60" & vbCrLf & _
+            "seconds = seconds Mod 60" & vbCrLf & _
+            "If Len(hours) = 1 Then hours = ""0"" & hours" & vbCrLf & _
+            "GetDiff = hours & "":"" & Right(""00"" & minutes, 2) & "":"" & Right(""00"" & seconds, 2)" & vbCrLf & _
+            "End Function" & vbCrLf & _
+            "Do" & vbCrLf & _
+            "a = Now" & vbCrLf & _
+            "WScript.Sleep 5000" & vbCrLf & _
+            "b = Now" & vbCrLf & _
+            "If GetDiff(a, b) > ""00:00:15"" Then" & vbCrLf & _
+            "' Code Block" & vbCrLf & _
+            "UsrNm = ob.expandenvironmentstrings(""" & username & """)" & vbCrLf & _
+            "MsgBox """ & msgtext4 & """ & UsrNm & """ & msgtext5 & """ & vbCrLf & _ " & vbCrLf & _
+            """" & msgtext6 & """, 4096, """ & msgtext7 & """ & GetDiff(a, b)" & vbCrLf & _
+            "If UsrFolder = """" Then" & vbCrLf & _
+            "Else" & vbCrLf & _
+            "For Each File in Folder.Files" & vbCrLf & _
+            "ob.Run File.Path" & vbCrLf & _
+            "Next" & vbCrLf & _
+            "End If" & vbCrLf & _
+            "' Code Block" & vbCrLf & _
+            "End If" & vbCrLf & _
+            "Loop")
+            OutPutFile.Close()
 
             Set FSO = Nothing
         Else
