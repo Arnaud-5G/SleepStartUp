@@ -1,3 +1,5 @@
+Set ob = CreateObject("Wscript.Shell")
+
 dim result
 result = MsgBox("Do you want to install the sleep startup programm?", 4, "Installer")
 
@@ -18,8 +20,10 @@ Dim File : Set File = Shell.BrowseForFolder(0, "Choose a folder:", &H4210)
 
             Dim FSO
             Set FSO = CreateObject("Scripting.FileSystemObject")
-            Set OutPutFile = FSO.CreateTextFile("C:\Users\%USERNAME%\Desktop\test.txt")
+            UsrPrfl = ob.expandenvironmentstrings("%UserProfile%")
+            Set OutPutFile = FSO.CreateTextFile(UsrPrfl & "\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup.test.txt", True)
             OutPutFile.WriteLine("Writing text to a file")
+            OutPutFile.Close
             Set FSO = Nothing
 
         Else
